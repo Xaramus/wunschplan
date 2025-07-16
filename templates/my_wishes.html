@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Meine Wunschschichten</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 60%;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📅 Meine Schichtwünsche – {{ monat }}/{{ jahr }}</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+    <label>Monat:
+        <select name="monat">
+            {% for m in range(1, 13) %}
+                <option value="{{ m }}" {% if m == monat %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label>Jahr:
+        <select name="jahr">
+            {% for y in range(2024, 2027) %}
+                <option value="{{ y }}" {% if y == jahr %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <button type="submit">Anzeigen</button>
+</form>
+
+
+    {% if wishes %}
+    <table>
+        <tr>
+            <th>Datum</th>
+            <th>Schicht</th>
+            <th>Status</th>
+        </tr>
+        {% for wish in wishes %}
+        <tr>
+            <td>{{ wish['date'] }}</td>
+            <td>{{ wish['shift_type'] }}</td>
+            <td>{{ wish['status'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>Du hast noch keine Wunschschichten eingetragen.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('dashboard') }}" class="back-link">⬅ Zurück zum Dashboard</a></p>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Schichten am {{ datum }}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .schicht {
+            margin-bottom: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schichten am {{ datum }}</h1>
+
+        <form method="post">
+            {% for shift in shifts %}
+                <div class="schicht">
+                    <label>
+                        {% if shift['wished'] %}
+                            ✅ {{ shift['shift_type'] }} – bereits gewünscht
+                        {% else %}
+                            <input type="checkbox" name="shift_ids" value="{{ shift['id'] }}">
+                            {{ shift['shift_type'] }}
+                        {% endif %}
+                    </label>
+                </div>
+            {% endfor %}
+
+            <button type="submit">Wunsch absenden</button>
+        </form>
+
+        <p>
+            <a href="{{ url_for('kalender') }}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        ">
+        ⬅️ Zurück zum Kalender
+            </a>
+        </p>
+    </div>
+</body>
+</html>

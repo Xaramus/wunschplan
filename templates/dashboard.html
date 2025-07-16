@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-green {
+            background-color: #28a745;
+        }
+
+        .btn-green:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-grey {
+            background-color: #6c757d;
+        }
+
+        .btn-grey:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Willkommen im Dashboard, <strong>{{ user_name }}</strong></p> </h1>
+    <a href="{{ url_for('kalender') }}" class="btn">📅 Zum Monatskalender</a>
+    <a href="{{ url_for('my_wishes') }}" class="btn btn-green">⭐ Meine Wunschschichten</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-grey">🚪 Logout</a>
+    {% if is_admin %}
+    <p><a href="{{ url_for('admin_dashboard') }}" style="color: darkred; font-weight: bold;">🛠 Zum Adminbereich</a></p>
+    {% endif %}
+
+</body>
+</html>

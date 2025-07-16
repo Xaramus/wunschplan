@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalender</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .kalender {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        .tag {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .tag a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        .navigation {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalender: {{ monat }} / {{ jahr }}</h1>
+
+    <div class="navigation">
+        <a href="{{ url_for('kalender', monat=monat - 1 if monat > 1 else 12, jahr=jahr if monat > 1 else jahr - 1) }}">← Voriger Monat</a>
+        |
+        <a href="{{ url_for('kalender', monat=monat + 1 if monat < 12 else 1, jahr=jahr if monat < 12 else jahr + 1) }}">Nächster Monat →</a>
+    </div>
+
+    <div class="kalender">
+       {% for tag in tage %}
+    {% set tag_str = tag.strftime('%Y-%m-%d') %}
+    <a href="{{ url_for('show_shifts_for_day', datum=tag_str) }}" style="
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        text-align: center;
+        line-height: 100px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        background-color: {% if tag_str in belegt_tage %}#28a745{% else %} #0000FF{% endif %};
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    ">
+        {{ tag.day }}
+    </a>
+    {% endfor %}
+    </div>
+    <p>
+    <a href="{{ url_for('dashboard') }}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    ">
+        ⬅️ Zurück zum Dashboard
+    </a>
+    </p>
+</body>
+</html>

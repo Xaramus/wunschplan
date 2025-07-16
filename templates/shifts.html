@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schichten</title>
+</head>
+<body>
+    <h1>Verfügbare Schichten</h1>
+
+    {% if shifts %}
+    <table border="1">
+        <tr>
+            <th>Datum</th>
+            <th>Typ</th>
+        </tr>
+        {% for shift in shifts %}
+        <tr>
+            <td>{{ shift['date'] }}</td>
+            <td>{{ shift['shift_type'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Keine Schichten verfügbar.</p>
+    {% endif %}
+</body>
+</html>
